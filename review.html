@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dzongri Cuisine - Reviews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Gelasio', serif;
+      background: linear-gradient(135deg, #f9f5f0 0%, #f0e6d9 100%);
+      color: #333;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Header styles */
+    .navbarmenu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: #582e2e;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 9999;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-linksmenu ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+
+    .nav-linksmenu a {
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .nav-linksmenu a:hover {
+      color: #ffd166;
+    }
+
+    .nav-linksmenu a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #ffd166;
+      transition: width 0.3s ease;
+    }
+
+    .nav-linksmenu a:hover::after {
+      width: 100%;
+    }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 25px;
+      height: 18px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: #ffffff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    h1, .dzongri-title {
+      font-family: 'Russo One', sans-serif;
+      font-size: 2rem;
+      color: #ffffff;
+      letter-spacing: 2px;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+    }
+
+    /* Hero Section */
+    .reviews-hero {
+      height: 50vh;
+      background: linear-gradient(rgba(88, 46, 46, 0.85), rgba(88, 46, 46, 0.85)), 
+                  url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9IiM1ODJlMmUiPjwvcmVjdD4KICA8cGF0aCBkPSJNMCw1MCBDMTUwLDEwMCAzNTAsMCA1MDAsNTAgTDUwMCwxMDAgTDAsMTAwIFoiIGZpbGw9IiM0ZTI1MjUiIG9wYWNpdHk9IjAuNCI+PC9wYXRoPgogIDxwYXRoIGQ9Ik0wLDcwIEMxMDAsMTIwIDMwMCwxMCA1MDAsNzAgTDUwMCwxMDAgTDAsMTAwIFoiIGZpbGw9IiM0ZTI1MjUiIG9wYWNpdHk9IjAuMyI+PC9wYXRoPgo8L3N2Zz4=');
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin-top: 70px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content {
+      max-width: 800px;
+      padding: 0 20px;
+      z-index: 2;
+    }
+
+    .hero-content h2 {
+      font-family: 'Russo One', sans-serif;
+      font-size: 3.5rem;
+      margin-bottom: 1rem;
+      letter-spacing: 3px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      animation: fadeInDown 1s ease;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto;
+      animation: fadeInUp 1s ease 0.3s forwards;
+      opacity: 0;
+    }
+
+    /* Reviews Section */
+    .reviews-section {
+      max-width: 1200px;
+      margin: 80px auto 50px;
+      padding: 20px;
+    }
+
+    .section-title {
+      font-family: 'Russo One', sans-serif;
+      color: #582e2e;
+      font-size: 2.2rem;
+      text-align: center;
+      margin-bottom: 40px;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 4px;
+      background: #ffd166;
+      margin: 10px auto 0;
+      border-radius: 2px;
+    }
+
+    .reviews-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 30px;
+    }
+
+    .review-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(88, 46, 46, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .review-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 40px rgba(88, 46, 46, 0.15);
+    }
+
+    .review-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .review-avatar {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: #e0d0c0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: #582e2e;
+      margin-right: 20px;
+      font-weight: bold;
+    }
+
+    .reviewer-info {
+      flex: 1;
+    }
+
+    .reviewer-name {
+      font-family: 'Russo One', sans-serif;
+      font-size: 1.3rem;
+      color: #582e2e;
+      margin-bottom: 5px;
+    }
+
+    .review-date {
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    .rating {
+      color: #ffd166;
+      font-size: 1.2rem;
+      margin-bottom: 15px;
+    }
+
+    .review-content {
+      color: #555;
+      line-height: 1.7;
+      font-style: italic;
+      position: relative;
+      padding-left: 20px;
+    }
+
+    .review-content::before {
+      content: " ";
+      font-family: Georgia, serif;
+      font-size: 4rem;
+      position: absolute;
+      left: -15px;
+      top: -20px;
+      color: rgba(88, 46, 46, 0.1);
+    }
+
+    /* Stats Section */
+    .stats-section {
+      max-width: 1200px;
+      margin: 80px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .stat-card {
+      background: white;
+      border-radius: 15px;
+      padding: 30px 20px;
+      box-shadow: 0 10px 30px rgba(88, 46, 46, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .stat-value {
+      font-family: 'Russo One', sans-serif;
+      font-size: 3rem;
+      color: #582e2e;
+      margin-bottom: 10px;
+    }
+
+    .stat-label {
+      color: #666;
+      font-size: 1.1rem;
+    }
+
+    /* Footer */
+    .footer {
+      background: #582e2e;
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .social-icons a {
+      color: white;
+      font-size: 1.5rem;
+      transition: transform 0.3s, color 0.3s;
+    }
+
+    .social-icons a:hover {
+      transform: translateY(-5px);
+      color: #ffd166;
+    }
+
+    .copyright {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-top: 20px;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        transform: translateY(-30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
+      .nav-linksmenu {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 250px;
+        background-color: #4e2e2e;
+        transition: right 0.3s ease-in-out;
+        padding-top: 70px;
+        z-index: 999;
+      }
+
+      .nav-linksmenu.active {
+        right: 0;
+      }
+
+      .nav-linksmenu ul {
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+        gap: 1.5rem;
+      }
+
+      .nav-linksmenu ul li {
+        margin: 0.5rem 0;
+      }
+      
+      .reviews-hero {
+        height: 40vh;
+      }
+      
+      .hero-content h2 {
+        font-size: 2.5rem;
+      }
+      
+      .reviews-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .dzongri-title {
+        font-size: 1.5rem;
+      }
+      
+      .hero-content h2 {
+        font-size: 2rem;
+      }
+      
+      .review-card {
+        padding: 20px;
+      }
+      
+      .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .review-avatar {
+        margin-bottom: 15px;
+      }
+    }
+    .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--light-color);
+            font-size: 3rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+    /* Animation delays for review cards */
+    .review-card:nth-child(1) { animation-delay: 0.1s; }
+    .review-card:nth-child(2) { animation-delay: 0.2s; }
+    .review-card:nth-child(3) { animation-delay: 0.3s; }
+    .review-card:nth-child(4) { animation-delay: 0.4s; }
+    .review-card:nth-child(5) { animation-delay: 0.5s; }
+    .review-card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+  <header class="navbarmenu">
+    <h1 class="dzongri-title">DZONGRI</h1>
+    <nav class="nav-linksmenu" id="navLinkstoggle">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menuf.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="review.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="reviews-hero" id="reviews">
+    <div class="hero-content">
+      <h2>CUSTOMER REVIEWS</h2>
+      <p>Discover what our guests have to say about their dining experience at Dzongri Cuisine</p>
+    </div>
+  </section>
+
+  <section class="reviews-section">
+    <h2 class="section-title">What Our Guests Say</h2>
+    
+    <div class="reviews-container">
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">M</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">Michael Thompson</h3>
+            <div class="review-date">June 15, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="review-content">The flavors at Dzongri are absolutely incredible! Every dish was a masterpiece. The ambiance is perfect for a romantic dinner. Highly recommend the chef's special platter.</p>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">S</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">Sarah Johnson</h3>
+            <div class="review-date">July 2, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="review-content">I celebrated my birthday here and the staff went above and beyond to make it special. The food was exceptional, especially the lamb curry. Will definitely be returning!</p>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">J</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">James Wilson</h3>
+            <div class="review-date">August 8, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="review-content">Authentic cuisine with a modern twist. The service was impeccable and the presentation of each dish was like artwork. The flavors transported me back to my travels in the region.</p>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">E</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">Emma Rodriguez</h3>
+            <div class="review-date">September 12, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="far fa-star"></i>
+        </div>
+        <p class="review-content">The vegetarian options were outstanding! As someone with dietary restrictions, I appreciated how knowledgeable the staff was about ingredients. The ambiance is cozy and inviting.</p>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">R</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">Robert Chen</h3>
+            <div class="review-date">October 5, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+        </div>
+        <p class="review-content">Hands down the best dining experience I've had this year. The tasting menu was worth every penny. The wine pairings were expertly chosen. Can't wait to bring my colleagues here.</p>
+      </div>
+      
+      <div class="review-card">
+        <div class="review-header">
+          <div class="review-avatar">A</div>
+          <div class="reviewer-info">
+            <h3 class="reviewer-name">Amanda Lee</h3>
+            <div class="review-date">November 18, 2023</div>
+          </div>
+        </div>
+        <div class="rating">
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star"></i>
+          <i class="fas fa-star-half-alt"></i>
+        </div>
+        <p class="review-content">Perfect for a special occasion. The staff made us feel like VIPs from the moment we walked in. The dessert selection is to die for - don't miss the saffron-infused crème brûlée!</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="stats-section">
+    <h2 class="section-title">Our Happy Customers</h2>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">4.9<span style="font-size: 1.5rem;">/5</span></div>
+        <div class="stat-label">Average Rating</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">2,500+</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">98%</div>
+        <div class="stat-label">Would Recommend</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">150+</div>
+        <div class="stat-label">5-Star Reviews</div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <div class="container">
+        <div class="footer-content" data-aos="fade-up">
+            <div class="footer-logo">DZONGRIE <span>CUISINE</span></div>
+            <p>Experience the authentic taste of Bhutan</p>
+            <div class="social-links">
+                <a href="https://www.facebook.com/profile.php?id=61578209752584"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/dzongricuisine?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+                <a href="https://www.tiktok.com/@dzongricuisine?is_from_webapp=1&sender_device=pc"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  <script>
+    // Hamburger menu toggle
+    const nav = document.getElementById('navLinkstoggle');
+    const links = nav.querySelectorAll('a');
+    const hamburger = document.querySelector('.hamburger');
+  
+    function toggleMenu() {
+      nav.classList.toggle('active');
+      hamburger.classList.toggle('active');
+      
+      // Animate hamburger to X
+      if (hamburger.classList.contains('active')) {
+        hamburger.children[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+        hamburger.children[1].style.opacity = '0';
+        hamburger.children[2].style.transform = 'rotate(-45deg) translate(5px, -5px)';
+      } else {
+        hamburger.children[0].style.transform = 'rotate(0) translate(0)';
+        hamburger.children[1].style.opacity = '1';
+        hamburger.children[2].style.transform = 'rotate(0) translate(0)';
+      }
+    }
+  
+    links.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.children[0].style.transform = 'rotate(0) translate(0)';
+        hamburger.children[1].style.opacity = '1';
+        hamburger.children[2].style.transform = 'rotate(0) translate(0)';
+      });
+    });
+  
+    document.addEventListener('click', (e) => {
+      if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+        nav.classList.remove('active');
+        hamburger.classList.remove('active');
+        hamburger.children[0].style.transform = 'rotate(0) translate(0)';
+        hamburger.children[1].style.opacity = '1';
+        hamburger.children[2].style.transform = 'rotate(0) translate(0)';
+      }
+    });
+    
+    // Scroll animation for review cards
+    document.addEventListener('DOMContentLoaded', function() {
+      const reviewCards = document.querySelectorAll('.review-card');
+      
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+          }
+        });
+      }, { threshold: 0.1 });
+      
+      reviewCards.forEach(card => {
+        observer.observe(card);
+      });
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DZONGRIE CUISINE - Traditional Bhutanese Restaurant</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Poppins&display=swap" rel="stylesheet">
+ 
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #582e2e; /* Bhutanese red */
+            --secondary-color: #f6ad55; /* Bhutanese orange */
+            --accent-color: #ecc94b; /* Bhutanese yellow */
+            --light-color: #ffffff;
+            --dark-color: #2d3748;
+            --text-color: #4a5568;
+            --section-bg: #f7fafc;
+            --pattern-color: rgba(197, 48, 48, 0.05);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text-color);
+            background-color: var(--light-color);
+            overflow-x: hidden;
+            position: relative;
+            padding-top: 130px; /* Prevent content overlap with fixed nav */
+        }
+        
+        /* Bhutanese pattern background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, var(--pattern-color) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, var(--pattern-color) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, var(--pattern-color) 0%, transparent 30%);
+            z-index: -1;
+            opacity: 0.3;
+        }   
+        
+        /* Header Styles */
+        .header {
+            background-color:#8a6a5c;
+            color: var(--light-color);
+            padding: 0.2rem 0;
+            position: fixed;
+            top: 70px; /* Position below navbar */
+            width: 100%;
+            z-index: 90;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-wrapper {
+            position: relative;
+            width: 100%;
+        }
+        
+        .nav {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            flex-wrap: wrap;
+            position: relative;
+            gap: 1rem;
+        }
+        
+        .nav a {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 700;
+            transition: color 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 2rem;
+        }
+        
+        .nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .nav a.active {
+            color: var(--accent-color);
+        }
+        
+        /* Animated Underline */
+        .nav-underline {
+            position: absolute;
+            bottom: 0;
+            height: 3px;
+            background-color: var(--accent-color);
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            transform-origin: left;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 0.5rem 1rem;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        
+        /* Menu Section */
+        .menu-section {
+            padding: 1rem 0;
+            background-color: var(--section-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            font-family: 'Russo One', sans-serif;
+        }
+        
+        .section-title p {
+            color: var(--text-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* Menu Items Grid */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+            justify-items: center; /* Center menu items */
+        }
+        
+        .menu-item {
+            position: relative;
+            transition: transform 0.5s ease, filter 0.5s ease;
+            filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.1));
+            max-width: 350px;
+            width: 100%;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-15px);
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+        }
+        
+        .menu-item-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 20px;
+        }
+        
+        .menu-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .menu-item:hover .menu-item-image img {
+            transform: scale(1.05);
+        }
+        
+        
+        .menu-item-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+            color: var(--light-color);
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .menu-item-title {
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .menu-item-description {
+            font-size: 1rem;
+            line-height: 1.5;
+            opacity: 0.9;
+        }
+        
+        /* Floating effect enhancement */
+        .menu-item::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 25px;
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+            filter: blur(20px);
+        }
+        
+        .menu-item:hover::before {
+            opacity: 0.3;
+        }
+        
+        /* Section Headers */
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .section-header h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-family: 'Russo One', sans-serif;
+            position: relative;
+            z-index: 1;
+            padding-right: 1rem;
+            background-color: var(--section-bg);
+        }
+        
+        .section-header::after {
+            content: "";
+            height: 2px;
+            background-color: var(--secondary-color);
+            flex-grow: 1;
+            opacity: 0.7;
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--dark-color);
+            color: var(--light-color);
+            padding: 3rem 0 1.5rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .footer-logo span {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .social-links a {
+            color: var(--light-color);
+            font-size: 3rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .copyright {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            body {
+                padding-top: 170px; /* Adjust for mobile */
+            }
+            
+            .header {
+                top: 60px; /* Adjust for mobile */
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .menu-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    
+        .navbarmenu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: #582e2e;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            z-index: 100; /* Ensure navbar is above content */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Navigation links */
+        .nav-linksmenu ul {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+        
+        .nav-linksmenu a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-linksmenu a:hover {
+            color: var(--accent-color);
+        }
+        
+        /* Hamburger icon */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 25px;
+            height: 18px;
+            cursor: pointer;
+            z-index: 101;
+        }
+        
+        .hamburger span {
+            display: block;
+            height: 3px;
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+        
+            .nav-linksmenu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 250px;
+                background-color: #4e2e2e;
+                transition: right 0.3s ease-in-out;
+                padding-top: 70px;
+                z-index: 99;
+            }
+        
+            .nav-linksmenu.active {
+                right: 0;
+            }
+        
+            .nav-linksmenu ul {
+                display: flex;
+                flex-direction: column;
+                padding: 1rem;
+                gap: 1.5rem;
+            }
+        
+            .nav-linksmenu ul li {
+                margin: 0.5rem 0;
+            }
+        }
+        
+        
+        .logoo {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+
+.logoo span {
+  color: var(--secondary-color);
+}
+        
+        /* Mobile menu animation */
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+        
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+        
+        /* Category navigation styling */
+        .nav-wrapper nav {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <section class="navbarmenu">
+        <h1 class="logoo">DZONG<span>RI</span></h1>
+        <nav class="nav-linksmenu" id="navLinkstoggle">
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menuf.html">Menu</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="review.html">Reviews</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="hamburger" onclick="toggleMenu()">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+    </section>
+    
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">                
+                <div class="nav-wrapper">
+                    <nav>
+                        <a href="#starters" class="nav-link active">Starters</a>
+                        <a href="#main-course" class="nav-link">Main Course</a>
+                        <a href="#soups" class="nav-link">Soups</a>
+                        <a href="#traditional" class="nav-link">Traditional Dishes</a>
+                        <a href="#drinks" class="nav-link">Drinks</a>
+                        <div class="nav-underline" id="navUnderline"></div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Menu Section -->
+    <section class="menu-section">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Our Menu</h2>
+                <p>Discover the rich culinary heritage of Bhutan through our carefully crafted dishes</p>
+            </div>
+
+            <!-- Starters Section -->
+            <div id="starters" class="menu-category">
+                <div class="section-header" data-aos="fade-right">
+                    <h3>Starters</h3>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-item-image">
+                            <img src="IMG_8653.JPG" alt="Momos">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Momos</h4>
+                                <p class="menu-item-description">Steamed dumplings filled with vegetables or meat, served with spicy tomato chutney</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-item-image">
+                            <img src="IMG_8653.JPG" alt="Shakam Eezay">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Shakam Eezay</h4>
+                                <p class="menu-item-description">Dried beef strips marinated in Bhutanese spices and deep-fried to perfection</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="menu-item-image">
+                            <img src="IMG_8655.JPG" alt="Kewa Datshi">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Kewa Datshi</h4>
+                                <p class="menu-item-description">Potatoes cooked with cheese and mild spices, a beloved Bhutanese comfort food</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Course Section -->
+            <div id="main-course" class="menu-category">
+                <div class="section-header" data-aos="fade-right">
+                    <h3>Main Course</h3>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-item-image">
+                            <img src="IMG_8655.JPG" alt="Ema Datshi">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Ema Datshi</h4>
+                                <p class="menu-item-description">Bhutan's national dish made with chili peppers and local cheese, a spicy delicacy</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-item-image">
+                            <img src="IMG_8656.JPG" alt="Shakam Paa">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Shakam Paa</h4>
+                                <p class="menu-item-description">Traditional dried beef cooked with chilies and radishes, a hearty Bhutanese favorite</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="menu-item-image">
+                            <img src="IMG_8657.JPG" alt="Phaksha Paa">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Phaksha Paa</h4>
+                                <p class="menu-item-description">Pork belly stir-fried with dried red chilies, bok choy, and mountain radishes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="400">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Jasha Maroo">
+                           
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Jasha Maroo</h4>
+                                <p class="menu-item-description">Spicy minced chicken cooked with tomatoes, onions, and traditional Bhutanese spices</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Soups Section -->
+            <div id="soups" class="menu-category">
+                <div class="section-header" data-aos="fade-right">
+                    <h3>Soups</h3>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Thukpa">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Thukpa</h4>
+                                <p class="menu-item-description">Hearty noodle soup with vegetables and your choice of meat, flavored with Bhutanese herbs</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Gondo Datshi">
+                           
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Gondo Datshi</h4>
+                                <p class="menu-item-description">Egg drop soup with cheese and chilies, a comforting Bhutanese specialty</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Traditional Dishes Section -->
+            <div id="traditional" class="menu-category">
+                <div class="section-header" data-aos="fade-right">
+                    <h3>Traditional Dishes</h3>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Red Rice">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Red Rice</h4>
+                                <p class="menu-item-description">Nutritious Bhutanese red rice, a staple food with a nutty flavor and soft texture</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Suja">
+                          
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Suja</h4>
+                                <p class="menu-item-description">Traditional Bhutanese butter tea, a savory and creamy beverage with salt</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Zow Shungo">
+                          
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Zow Shungo</h4>
+                                <p class="menu-item-description">Rice mixed with leftover vegetables and egg, a traditional Bhutanese fried rice</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drinks Section -->
+            <div id="drinks" class="menu-category">
+                <div class="section-header" data-aos="fade-right">
+                    <h3>Drinks</h3>
+                </div>
+                <div class="menu-grid">
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Ara">
+                            
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Ara</h4>
+                                <p class="menu-item-description">Traditional Bhutanese alcoholic beverage made from rice, maize, millet, or wheat</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1613478223711-6ab2a266a6a5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Chang">
+                          
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Chang</h4>
+                                <p class="menu-item-description">Mildly alcoholic beverage made from fermented rice or barley, served in bamboo containers</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                        <div class="menu-item-image">
+                            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Bhutanese Apple Juice">
+                        
+                            <div class="menu-item-content">
+                                <h4 class="menu-item-title">Bhutanese Apple Juice</h4>
+                                <p class="menu-item-description">Freshly pressed apple juice from Bhutan's orchards, sweet and refreshing</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content" data-aos="fade-up">
+                <div class="footer-logo">DZONGRIE <span>CUISINE</span></div>
+                <p>Experience the authentic taste of Bhutan</p>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/profile.php?id=61578209752584"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/dzongricuisine?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@dzongricuisine?is_from_webapp=1&sender_device=pc"><i class="fab fa-tiktok"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+
+        // Animated Underline
+        const navLinks = document.querySelectorAll('.nav-link');
+        const navUnderline = document.getElementById('navUnderline');
+        const headerHeight = document.querySelector('.header').offsetHeight;
+        const navbarHeight = document.querySelector('.navbarmenu').offsetHeight;
+        const totalOffset = headerHeight + navbarHeight + 20; // Add 20px for spacing
+        
+        // Function to set underline position
+        function setUnderline(link) {
+            if (!link) return;
+            
+            const linkRect = link.getBoundingClientRect();
+            const navRect = link.parentElement.getBoundingClientRect();
+            
+            navUnderline.style.width = `${linkRect.width}px`;
+            navUnderline.style.left = `${linkRect.left - navRect.left}px`;
+        }
+        
+        // Set initial underline position
+        const activeLink = document.querySelector('.nav-link.active');
+        if (activeLink) {
+            setUnderline(activeLink);
+        } else if (navLinks.length > 0) {
+            setUnderline(navLinks[0]);
+        }
+        
+        // Update underline on window resize
+        window.addEventListener('resize', () => {
+            const currentActive = document.querySelector('.nav-link.active');
+            if (currentActive) {
+                setUnderline(currentActive);
+            }
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - totalOffset,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Update active link
+                    navLinks.forEach(link => link.classList.remove('active'));
+                    this.classList.add('active');
+                    setUnderline(this);
+                }
+            });
+        });
+
+        // Mobile Hamburger Navigation
+        const nav = document.getElementById('navLinkstoggle');
+        const links = nav.querySelectorAll('a');
+        const hamburger = document.querySelector('.hamburger');
+      
+        function toggleMenu() {
+            nav.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        }
+      
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                nav.classList.remove('active');
+                hamburger.classList.remove('active');
+            });
+        });
+      
+        document.addEventListener('click', (e) => {
+            if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+                nav.classList.remove('active');
+                hamburger.classList.remove('active');
+            }
+        });
+
+        // Add active class to navigation links on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('.menu-category');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - totalOffset)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) {
+                    link.classList.add('active');
+                    setUnderline(link);
+                }
+            });
+        });
+        
+        // Initialize underline position on page load
+        window.addEventListener('load', () => {
+            setUnderline(document.querySelector('.nav-link.active'));
+        });
+    </script>
+</body>
+</html>

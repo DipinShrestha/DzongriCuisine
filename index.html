@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dzongri Cuisine - Authentic Bhutanese Experience</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Russo+One&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #582e2e;
+      --secondary-color: #f6ad55; 
+      --accent-color: #e6bc8a;
+      --light-color: #ffffff;
+      --dark-color: #1a1a1a;
+      --text-color: #3e2723;
+      --transition: all 0.4s ease;
+      --section-bg: #fdf9f5;
+      --pattern-color: rgba(88, 46, 46, 0.05);
+    }
+    
+    /* Base Styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Cormorant Garamond', serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      overflow-x: hidden;
+      padding-top: 70px;
+    }
+    
+    h1, h2, h3, h4 {
+      font-family: 'Russo One', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+    
+    h2 {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      position: relative;
+      text-align: center;
+    }
+    
+    h2:after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 4px;
+      background: var(--secondary-color);
+      border-radius: 2px;
+    }
+    
+    section {
+      padding: 5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .section-bg-pattern {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: 
+        radial-gradient(var(--pattern-color) 2px, transparent 2px),
+        radial-gradient(var(--pattern-color) 2px, transparent 2px);
+      background-size: 40px 40px;
+      background-position: 0 0, 20px 20px;
+      z-index: -1;
+      opacity: 0.4;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .btn {
+      display: inline-block;
+      background: var(--secondary-color);
+      color: var(--light-color);
+      padding: 12px 18px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      border: 2px solid var(--secondary-color);
+      text-transform: uppercase;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-align: center;
+      margin: 0 auto;
+    }
+    .btn-container {
+  text-align: center;
+  margin-top: 20px; /* optional */
+}
+    .btn:hover {
+      background: transparent;
+      color: var(--secondary-color);
+      transform: translateY(-3px);
+    }
+
+    /* Navbar */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background-color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      z-index: 1000;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: var(--transition);
+    }
+    
+    .navbar h1 {
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      transition: var(--transition);
+    }
+    
+    .nav-links ul {
+      display: flex;
+      list-style: none;
+      gap: 1.5rem;
+    }
+    
+    .nav-links a {
+      color: var(--light-color);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.05rem;
+      position: relative;
+      padding: 5px 0;
+      transition: var(--transition);
+    }
+    
+    .nav-links a:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent-color);
+      transition: var(--transition);
+    }
+    
+    .nav-links a:hover {
+      color: var(--accent-color);
+    }
+    
+    .nav-links a:hover:after {
+      width: 100%;
+    }
+    
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 30px;
+      height: 21px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+    
+    .hamburger span {
+      display: block;
+      height: 3px;
+      width: 100%;
+      background-color: var(--light-color);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    
+    /* Hero Section */
+    .hero-video {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      overflow: hidden;
+    }
+    
+    .hero-video::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(88,46,46,0.6) 100%);
+      z-index: 1;
+    }
+    
+    .bg-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      object-fit: cover;
+    }
+    
+    .video-content {
+      position: relative;
+      z-index: 2;
+      color: var(--light-color);
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+      padding: 0 20px;
+    }
+    
+    .video-content h1 {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      letter-spacing: 3px;
+    }
+    
+    .video-content p {
+      font-size: 1.5rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+    
+    /* Menu Section */
+    .menu {
+      padding: 5rem 1rem 3rem;
+      background: var(--section-bg);
+      position: relative;
+    }
+    
+    .menu-items {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      gap: 1.5rem;
+      padding: 1rem 0 3rem;
+      margin: 0 auto;
+      max-width: 1200px;
+      scrollbar-width: none;
+    }
+    
+    .menu-items::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .menu-item {
+      flex: 0 0 auto;
+      width: 280px;
+      background: var(--light-color);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+      scroll-snap-align: center;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      
+    }
+    
+    .menu-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      border-color: var(--accent-color);
+    }
+    
+    .menu-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-bottom: 1rem;
+     
+    }
+    
+    .menu-item h3 {
+      margin: 0.5rem 0;
+      font-size: 1.3rem;
+      color: var(--primary-color);
+      text-align: center;
+    }
+    
+    .menu-item p {
+      font-size: 0.95rem;
+      color: #666;
+      margin: 0 0 1rem;
+      text-align: center;
+      flex-grow: 1;
+    }
+    
+    .menu-item span {
+      font-weight: bold;
+      color: var(--secondary-color);
+      font-size: 1.2rem;
+    }
+    
+    
+    
+    /* Unified Section Styles */
+    .theme-section {
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+      margin: 0 auto;
+      max-width: 1200px;
+    }
+    
+    .theme-content {
+      flex: 1;
+      padding: 1rem;
+    }
+    
+    .theme-content h2 {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
+    
+    .theme-content h2:after {
+      left: 0;
+      transform: none;
+    }
+    
+    .theme-content h3 {
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 600;
+      font-style: italic;
+    }
+    
+    .theme-content p {
+      margin-bottom: 1.5rem;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+    
+    .theme-image {
+      flex: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      
+      position: relative;
+      transition: var(--transition);
+    }
+    
+    .theme-image:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    }
+    
+    .theme-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    
+    .theme-image:hover img {
+      transform: scale(1.05);
+    }
+    
+    .image-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(88, 46, 46, 0.85);
+      color: var(--light-color);
+      padding: 12px;
+      text-align: center;
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+    
+    .features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(230, 188, 138, 0.15);
+      padding: 12px 18px;
+      border-radius: 6px;
+      border-left: 4px solid var(--accent-color);
+    }
+    
+    .feature-icon {
+      font-size: 1.5rem;
+      color: var(--secondary-color);
+    }
+    
+    .feature-text {
+      font-weight: 500;
+      color: var(--primary-color);
+    }
+    
+    /* Specific section backgrounds */
+    .dzongri-section {
+     background-color: var(--light-color);
+    }
+    
+    .dining-section {
+      background-color: var(--section-bg);
+    }
+    
+    .outdoor-section {
+     background-color: var(--light-color);
+    }
+    
+    .welcome-section {
+     background-color: var(--section-bg);
+      text-align: center;
+      padding: 6rem 2rem;
+    }
+    
+    .welcome-content h1 {
+      font-size: 3.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1rem;
+    }
+    
+    .welcome-content p {
+      font-size: 1.4rem;
+      color: var(--secondary-color);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+    
+    .welcome-image {
+      max-width: 800px;
+      margin: 3rem auto 0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+      border: 1px solid var(--light-color);
+    }
+    
+    .welcome-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    
+    /* Contact Section */
+    .contact {
+      padding: 5rem 1.5rem;
+      text-align: center;
+    }
+    
+    iframe {
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      border: 5px solid var(--light-color);
+      height: 400px;
+    }
+    
+    /* Footer */
+    .footer {
+      background: var(--primary-color);
+      color: var(--light-color);
+      padding: 4rem 1.5rem 2rem;
+      position: relative;
+    }
+    
+    .footer:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(90deg, var(--accent-color), var(--secondary-color), var(--accent-color));
+    }
+    
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-color);
+      position: relative;
+      padding-bottom: 0.8rem;
+    }
+    
+    .footer-column h3:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 50px;
+      height: 3px;
+      background: var(--secondary-color);
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #e0e0e0;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+    
+    .footer-links a:hover {
+      color: var(--accent-color);
+      padding-left: 5px;
+    }
+    
+    .social-icons {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1.5rem;
+    }
+    
+    .social-icons a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 45px;
+      height: 45px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: white;
+      font-size: 1.2rem;
+      transition: var(--transition);
+    }
+    
+    .social-icons a:hover {
+      background: var(--accent-color);
+      color: var(--primary-color);
+      transform: translateY(-5px);
+    }
+    
+    .copyright {
+      text-align: center;
+      padding-top: 2rem;
+      margin-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--accent-color);
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 992px) {
+      .theme-section {
+        flex-direction: column;
+      }
+      
+      .theme-content, .theme-image {
+        width: 100%;
+      }
+      
+      .theme-content h2 {
+        text-align: center;
+      }
+      
+      .theme-content h2:after {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 1rem;
+      }
+      
+      .hamburger {
+        display: flex;
+      }
+      
+      .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 280px;
+        background-color: var(--primary-color);
+        transition: right 0.4s ease-in-out;
+        padding-top: 80px;
+        z-index: 999;
+      }
+      
+      .nav-links.active {
+        right: 0;
+      }
+      
+      .nav-links ul {
+        flex-direction: column;
+        padding: 1rem 2rem;
+        gap: 1.5rem;
+      }
+      
+      .video-content h1 {
+        font-size: 2.8rem;
+      }
+      
+      .video-content p {
+        font-size: 1.2rem;
+      }
+      
+      .menu-item {
+        width: 260px;
+      }
+      
+      .welcome-content h1 {
+        font-size: 2.5rem;
+      }
+      
+      .welcome-content p {
+        font-size: 1.2rem;
+      }
+    }
+    
+    @media (max-width: 576px) {
+      .video-content h1 {
+        font-size: 2.2rem;
+      }
+      
+      .video-content p {
+        font-size: 1rem;
+      }
+      
+      h2 {
+        font-size: 2rem;
+      }
+      
+      .menu-item {
+        width: 240px;
+      }
+      
+      .feature {
+        width: 100%;
+      }
+      
+      .welcome-content h1 {
+        font-size: 2rem;
+      }
+    }
+    .logoo {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2rem;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+
+.logoo span {
+  color: var(--secondary-color);
+}
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <h1 class="logoo">DZONG<span>RI</span></h1>
+    <nav class="nav-links" id="navLinks">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menuf.html">Menu</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="review.html">Reviews</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <section class="hero-video">
+    <video autoplay muted loop playsinline class="bg-video">
+      <source src="v14044g50000ct2n8vfog65s9q7o2i1g 2.mov" type="video/mp4">
+      <!-- Optional fallback -->
+      Your browser does not support HTML5 video.
+    </video>
+  
+    <div class="video-content">
+      <h1>Welcome to Dzongri Cuisine</h1>
+      <p>Traditional Himalayan Flavors, Modern Vibe.</p>
+    </div>
+  </section>
+  
+  <section class="menu">
+    <div class="section-bg-pattern"></div>
+    <h2>MENU</h2>
+    <div class="menu-items">
+      <!-- Menu items repeated for demonstration -->
+      <div class="menu-item">
+        <img src="IMG_8653 2.JPG" alt="Thukpa" />
+        <h3>Thukpa</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+      <div class="menu-item">
+        <img src="IMG_8654.jpg" alt="Thukpa" />
+        <h3>Thukpa</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+      <div class="menu-item">
+        <img src="IMG_8655.jpg" alt="Thukpa" />
+        <h3>Thukpa</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+      <div class="menu-item">
+        <img src="IMG_8656.jpg" alt="Thukpa" />
+        <h3>Dumpling</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+      <div class="menu-item">
+        <img src="IMG_8657.jpg" alt="Thukpa" />
+        <h3>Tea</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+      <div class="menu-item">
+        <img src="IMG_8657.jpg" alt="Thukpa" />
+        <h3>Tea</h3>
+        <p>Warm noodle soup with Himalayan spices.</p>
+        <span>Rs. 250</span>
+      </div>
+    </div>
+    <div class="btn-container">
+    <a href="menuf.html" class="btn">EXPLORE OUR MENU</a>
+    </div>
+  </section>
+  
+  <section class="dzongri-section">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <div class="theme-section">
+        <div class="theme-content">
+          <h2>DZONGRI CUISINE</h2>
+          <h3>Inspired by Bhutanese Tradition</h3>
+          <p>At Dzongri Cuisine, our restaurant is deeply inspired by the warmth, simplicity, and rich cultural heritage of Bhutanese style. From the earthy tones of our decor to the authentic flavors in every dish, we bring the essence of Bhutan right to your table. Our goal is to create a dining experience that reflects the peaceful spirit of Bhutan — with traditional recipes, handcrafted ambiance, and heartfelt hospitality that makes you feel at home.</p>
+        </div>
+        <div class="theme-image">
+          <img src="IMG_8653.JPG" alt="Traditional Bhutanese Dish">
+          <div class="image-caption">
+            Authentic Bhutanese Dumpling
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <h2>WE OFFER YOU</h2>
+
+  <section class="dining-section">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <div class="theme-section">
+        <div class="theme-image">
+          <img src="IMG_8651.JPG" alt="Gourmet dining experience">
+        </div>
+        <div class="theme-content">
+          <h2>AN UNFORGETTABLE DINING EXPERIENCE</h2>
+          <p>Indulge in culinary excellence with our chef's signature creations, crafted from the finest ingredients and served in an ambiance of sophistication.</p>
+        </div>
+      </div>
+    </div>
+  </section> 
+  
+  <section class="outdoor-section">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <div class="theme-section">
+        <div class="theme-content">
+          <h2>OUTDOOR THEME AREA</h2>
+          <h3>For Our Smoking Guests</h3>
+          <p>We've created a comfortable outdoor space where you can enjoy your favorite beverages and cuisine in a relaxed, open-air environment. Our thoughtfully designed smoking area features traditional Bhutanese elements with comfortable seating, allowing you to savor your experience while respecting the comfort of all our guests.</p>
+          <div class="features">
+            
+          </div>
+        </div>
+        <div class="theme-image">
+          <img src="IMG_8647.jpg" alt="Outdoor smoking area with Bhutanese theme">
+        </div>
+      </div>
+    </div>
+  </section>
+     
+  <section class="welcome-section">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <div class="welcome-content">
+        <h1>WAITING TO SERVE YOU</h1>
+        <p>Your satisfaction is our priority</p>
+      </div>
+      <div class="welcome-image">
+        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Welcoming staff">
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="section-bg-pattern"></div>
+    <div class="container">
+      <h2>Location</h2>
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d243.74159041910255!2d87.69762270890368!3d26.661566259249536!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e591006def1863%3A0xe88077c2b3c04aa3!2sDZONGRI%20cuisine!5e1!3m2!1sen!2snp!4v1751652243621!5m2!1sen!2snp" 
+        width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy">
+      </iframe>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>Quick Links</h3>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="menuf.html">Our Menu</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Opening Hours</h3>
+        <ul class="footer-links">
+          <li>Monday - Thursday: 11:30 AM - 10:00 PM</li>
+          <li>Friday - Saturday: 11:30 AM - 11:00 PM</li>
+          <li>Sunday: 12:00 PM - 9:00 PM</li>
+          <li>Happy Hour: 3:00 PM - 6:00 PM Daily</li>
+        </ul>
+      </div>
+      
+      <div class="footer-column">
+        <h3>Contact Us</h3>
+        <ul class="footer-links">
+          <li><i class="fas fa-map-marker-alt"></i> Damak</li>
+          <li><i class="fas fa-phone"></i> 9800000000</li>
+          <li><i class="fas fa-envelope"></i> info@dzongricuisine.com</li>
+        </ul>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=61578209752584"><i class="fab fa-facebook-f"></i></a>
+          <a href="https://www.instagram.com/dzongricuisine?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="><i class="fab fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/@dzongricuisine?is_from_webapp=1&sender_device=pc"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">
+      &copy; 2023 Dzongri Cuisine. All Rights Reserved.
+    </div>
+  </footer>
+  
+  <script>
+    // Mobile Navigation Toggle
+    function toggleMenu() {
+      const nav = document.getElementById('navLinks');
+      nav.classList.toggle('active');
+      
+      // Hamburger animation
+      const hamburger = document.querySelector('.hamburger');
+      hamburger.classList.toggle('active');
+    }
+
+    // Menu Carousel
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuContainer = document.querySelector('.menu-items');
+      if (!menuContainer) return;
+      
+      const originalItems = Array.from(menuContainer.querySelectorAll('.menu-item'));
+      const itemWidth = originalItems[0].offsetWidth + 24;
+      const totalClones = 2;
+      
+      // Clone items for infinite scroll
+      for (let i = 0; i < totalClones; i++) {
+        originalItems.forEach(item => {
+          const cloneBefore = item.cloneNode(true);
+          const cloneAfter = item.cloneNode(true);
+          menuContainer.insertBefore(cloneBefore, menuContainer.firstChild);
+          menuContainer.appendChild(cloneAfter);
+        });
+      }
+      
+      // Scroll to center on load
+      const scrollTo = itemWidth * originalItems.length;
+      menuContainer.scrollLeft = scrollTo;
+      
+      // Infinite scroll logic
+      menuContainer.addEventListener('scroll', function() {
+        const scrollLeft = menuContainer.scrollLeft;
+        const scrollWidth = menuContainer.scrollWidth;
+        const visibleWidth = menuContainer.offsetWidth;
+        const totalOriginalWidth = itemWidth * originalItems.length;
+        
+        if (scrollLeft <= 0) {
+          menuContainer.scrollLeft = scrollLeft + totalOriginalWidth;
+        } else if (scrollLeft + visibleWidth >= scrollWidth - 1) {
+          menuContainer.scrollLeft = scrollLeft - totalOriginalWidth;
+        }
+      });
+      
+      // Highlight centered item
+      function highlightCenteredItem() {
+        const allItems = menuContainer.querySelectorAll('.menu-item');
+        const containerCenter = menuContainer.offsetWidth / 2;
+        
+        allItems.forEach(item => {
+          const rect = item.getBoundingClientRect();
+          const itemCenter = rect.left + rect.width / 2;
+          const distance = Math.abs(containerCenter - itemCenter);
+          
+          if (distance < 60) {
+            item.style.transform = 'scale(1.1) translateY(-10px)';
+            item.style.boxShadow = '0 8px 16px rgba(0,0,0,0.15)';
+          } else {
+            item.style.transform = 'scale(1) translateY(0)';
+            item.style.boxShadow = '0 2px 5px rgba(0,0,0,0.1)';
+          }
+        });
+      }
+      
+      // Run highlight on scroll
+      menuContainer.addEventListener('scroll', highlightCenteredItem);
+      window.addEventListener('resize', highlightCenteredItem);
+      highlightCenteredItem();
+    });
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
